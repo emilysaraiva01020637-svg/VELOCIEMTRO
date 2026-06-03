@@ -16,7 +16,7 @@ body{ background: #111; color: #ff1100; font-family: Arial; text-align: center; 
 Scrip que cata do buscar_ultimo.php e atualiza os dados sem recarregar a página
 <script>
 function atualizarDados() {
-fetch('dados.php')
+fetch('buscar_ultimo.php')
 .then(response => response.json())
 .then(data => {
 document.getElementById('velocidade').innerText = data.velocidade;
@@ -25,7 +25,7 @@ document.getElementById('rpm').innerText = data.rpm;
 .catch(error => console.log(error));
 }
 atualizarDados();
-setInterval(atualizarDados, 1000);
+setInterval(atualizarDados, 500);
 </script>
 </body>
 </html>
