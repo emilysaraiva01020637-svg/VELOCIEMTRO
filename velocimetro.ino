@@ -13,10 +13,10 @@ float circunferenciaRoda;
 float velocidadeKmh = 0;
 float rpm = 0;
 unsigned long tempoUltimoEnvio = 0;
-const unsigned long intervaloEnvio = 2000;
+const unsigned long intervaloEnvio = 500;
 void IRAM_ATTR detectarIma() {
 unsigned long tempoAtual = micros();
-if (tempoAtual - tempoUltimoPulso > 5000) {
+if (tempoAtual - tempoUltimoPulso > 2000) {
 if (!primeiroPulso) {
 intervaloPulsos = tempoAtual - tempoUltimoPulso;
 } else {
@@ -63,8 +63,10 @@ clienteHttp.begin(urlServidor);
 clienteHttp.addHeader("Content-Type", "application/x-www-form-urlencoded");
 String dadosRequisicao = "velocidade=" + String(velocidadeKmh, 2) + "&rpm=" + String(rpm,
 2);
+clienteHttp.setReuse(true);
 int codigoRespostaHttp = clienteHttp.POST(dadosRequisicao);
 if (codigoRespostaHttp > 0) {
+clienteHttp.setTimeout(1000);
 String respostaServidor = clienteHttp.getString();
 Serial.println("Resposta: " + respostaServidor);
 }
@@ -72,5 +74,5 @@ Serial.println("Resposta: " + respostaServidor);
 clienteHttp.end();
 }
 }
-delay(100);
+;
 }
