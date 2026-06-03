@@ -74,5 +74,4 @@ Serial.println("Resposta: " + respostaServidor);
 clienteHttp.end();
 }
 }
-;
 }
