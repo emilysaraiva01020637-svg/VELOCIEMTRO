@@ -1,0 +1,10 @@
+CREATE DATABASE telemetria;
+
+USE telemetria;
+
+CREATE TABLE leituras (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    velocidade FLOAT NOT NULL,
+    rpm FLOAT NOT NULL,
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
