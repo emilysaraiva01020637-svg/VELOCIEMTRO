@@ -1,38 +1,161 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-
 <meta charset="UTF-8">
-<title>Monitor ESP32</title>
+<title>Velocímetro ESP32</title>
+
 <style>
-body{ background: #111; color: #ff1100; font-family: Arial; text-align: center; margin-top: 100px; }
-.valor{ font-size: 50px; margin: 20px; }
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#000,#1b1b1b);
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+    text-align:center;
+}
+
+h1{
+    font-size:3rem;
+    color:#ff0000;
+    margin-bottom:20px;
+    text-shadow:0 0 20px #ff0000;
+}
+
+.info{
+    background:#181818;
+    padding:20px;
+    border-radius:20px;
+    margin-bottom:30px;
+  
+}
+
+.info p{
+    margin-top:10px;
+    color:#ccc;
+    line-height:1.6;
+}
+
+.painel{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:#111;
+    border:2px solid #222;
+    border-radius:25px;
+    padding:30px;
+    width:300px;
+    transition:.3s;
+}
+
+
+
+.titulo{
+    font-size:1.3rem;
+    color:#aaa;
+    margin-bottom:15px;
+}
+
+.valor{
+    font-size:4rem;
+    font-weight:bold;
+}
+
+.vel{
+    color:#ff0000;
+    text-shadow:0 0 15px #ff0000;
+}
+
+.rpm{
+    color:#ff0000;
+    text-shadow:0 0 15px #ff0000;
+}
+
+.unidade{
+    font-size:1.2rem;
+    color:#999;
+}
+
+footer{
+    margin-top:30px;
+    color:#777;
+}
+
 </style>
 </head>
+
 <body>
-  <h1> ESP32 </h1>
-  <p>O <b>ESP32</b> é um microcontrolador de baixo custo e alto poder de processamento que já vem com Wi-Fi e Bluetooth. É usado para criar projetos de Internet das Coisas (IoT), automação residencial (como controlar lâmpadas e eletrodomésticos pelo celular) e robótica.</p>
-<div></div>
-  <p>Construir um velocímetro com o <b>ESP32</b> é um projeto comum e versátil. Ele pode ser feito utilizando um sensor Hall (magnético) na roda (ideal para bicicletas ou carrinhos) ou um módulo GPS para rastreamento veicular e medição em tempo real.</p>
-  <h1> Velocímetro </h1>
-  <p>O velocimetro foi criado em 1888 para medir e indicar a velocidade instantânea do veículo. Auxilia a ter noção exata de quão rápido está o objeto em relação ao solo.
-</p>
-  <div></div>
-  <h1>Dados da ESP32</h1>
-<div class="valor">Velocidade: <span id="velocidade">0</span></div>
-<div class="valor">RPM: <span id="rpm">0</span></div>
+
+<div class="container">
+
+    <h1>Velocímetro ESP32</h1>
+
+    <div class="info">
+        <h2>ESP32</h2>
+        <p>
+            Sistema de monitoramento em tempo real utilizando ESP32 de velocidade e RPM.
+        </p>
+    </div>
+
+    <div class="painel">
+
+        <div class="card">
+            <div class="titulo">Velocidade</div>
+            <div class="valor vel">
+                <span id="velocidade">0</span>
+            </div>
+            <div class="unidade">km/h</div>
+        </div>
+
+        <div class="card">
+            <div class="titulo">RPM</div>
+            <div class="valor rpm">
+                <span id="rpm">0</span>
+            </div>
+            <div class="unidade">rotações/min</div>
+        </div>
+
+    </div>
+
+    <footer>
+        Monitoramento da ESP32
+    </footer>
+
+</div>
+
 <script>
+
 function atualizarDados() {
-fetch('buscar_ultimo.php')
-.then(response => response.json())
-.then(data => {
-document.getElementById('velocidade').innerText = data.velocidade;
-document.getElementById('rpm').innerText = data.rpm;
-})
-.catch(error => console.log(error));
+    fetch('buscar_ultimo.php')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('velocidade').innerText = data.velocidade;
+        document.getElementById('rpm').innerText = data.rpm;
+    })
+    .catch(error => console.log(error));
 }
+
 atualizarDados();
 setInterval(atualizarDados, 500);
+
 </script>
+
 </body>
 </html>
